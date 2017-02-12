@@ -60,7 +60,6 @@ for story_heading in soup.find_all(class_= "story-heading"):
 	
 
 nytimes_headlines= nytimes_headlines[:10]
-print(len(nytimes_headlines))
 
 #####################
 
@@ -83,8 +82,22 @@ response = requests.get("https://www.si.umich.edu/directory?field_person_firstna
 htmldoc = response.text
 
 soup = BeautifulSoup(htmldoc,"html.parser")
+#print(soup.prettify())
 people = soup.find_all("div",{"class":"views-row"})
 umsi_titles = {}
+print(people)
+name_list= []
+for item in people:
+	stuff= item.find_all("div", {"property":"dc:title"})
+	for things in stuff:
+		names= things.find_all("h2")
+		for name in names:
+			name_list.append((name.text))
+title_list= []
+
+#for item in people:
+	findings= item.find_all("div", {"class":"field-item even"})
+
 
 ## It may be helpful to translate the following from English to code:
 
