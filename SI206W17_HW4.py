@@ -85,7 +85,8 @@ soup = BeautifulSoup(htmldoc,"html.parser")
 #print(soup.prettify())
 people = soup.find_all("div",{"class":"views-row"})
 umsi_titles = {}
-print(people)
+#print(people)
+
 name_list= []
 for item in people:
 	stuff= item.find_all("div", {"property":"dc:title"})
@@ -93,10 +94,22 @@ for item in people:
 		names= things.find_all("h2")
 		for name in names:
 			name_list.append((name.text))
-title_list= []
 
-#for item in people:
-	findings= item.find_all("div", {"class":"field-item even"})
+title_list= []
+for item in people:
+	first_search= item.find_all("div", {"class": "field-items"})
+	for finding in first_search:
+		if finding.a:
+			pass
+		elif finding.h2:
+			pass
+		else:
+			title_list.append((finding.text))
+
+x = 0
+for name in name_list:
+	umsi_titles[name]= title_list[x]
+	x += 1
 
 
 ## It may be helpful to translate the following from English to code:
